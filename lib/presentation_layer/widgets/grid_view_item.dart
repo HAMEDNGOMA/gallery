@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gallery/data_layer/model/image_model.dart';
@@ -23,8 +24,28 @@ class _GridViewItemState extends State<GridViewItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onLongPress: () {
         widget.onSelected(widget.imageModel);
+      },
+      onTap: () {
+        final imageProvider =
+            Image.file(File(widget.imageModel.imagePath)).image;
+        showImageViewer(context, imageProvider, onViewerDismissed: () {
+          print("dismissed");
+        });
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return Dialog(
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(8),
+        //       ),
+        //       child: Image.file(File(
+        //         widget.imageModel.imagePath,
+        //       )),
+        //     );
+        //   },
+        // );
       },
       child: Stack(
         children: [
