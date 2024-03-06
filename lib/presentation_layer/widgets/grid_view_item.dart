@@ -24,28 +24,18 @@ class _GridViewItemState extends State<GridViewItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      //select the image
       onLongPress: () {
         widget.onSelected(widget.imageModel);
       },
+
+      //show the image in the image viewer
       onTap: () {
         final imageProvider =
             Image.file(File(widget.imageModel.imagePath)).image;
         showImageViewer(context, imageProvider, onViewerDismissed: () {
           print("dismissed");
         });
-        // showDialog(
-        //   context: context,
-        //   builder: (BuildContext context) {
-        //     return Dialog(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(8),
-        //       ),
-        //       child: Image.file(File(
-        //         widget.imageModel.imagePath,
-        //       )),
-        //     );
-        //   },
-        // );
       },
       child: Stack(
         children: [
